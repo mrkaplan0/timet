@@ -18,8 +18,7 @@ COPY . .
 # Install vendor dependencies
 RUN composer install --optimize-autoloader --no-dev
 
-# Generate Laravel APP key (during initial build)
-RUN php artisan key:generate --ansi
+
 
 # Set permissions for storage and bootstrap/cache
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
