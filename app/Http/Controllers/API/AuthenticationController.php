@@ -22,12 +22,14 @@ class AuthenticationController extends Controller
                 'name'     => 'required|string|min:4',
                 'email'    => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8',
+                'role' => 'required|string'
             ]);
 
             $user = User::create([
                 'name'     => $validated['name'],
                 'email'    => $validated['email'],
                 'password' => Hash::make($validated['password']),
+                'role'     => 'user', // Default role for new users,
             ]);
 
             return response()->json([
@@ -83,6 +85,7 @@ class AuthenticationController extends Controller
                     'id'    => $user->id,
                     'name'  => $user->name,
                     'email' => $user->email,
+                    'role'  => $user->role,
                 ],
                 'token'       => $token,
                 'token_type'  => 'Bearer',
